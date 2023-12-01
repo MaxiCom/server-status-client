@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+use App\Service\API\ServerStatusApiService;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+try {
+    ServerStatusApiService::apiUpdate();
+} catch (TransportExceptionInterface $e) {
+    echo $e;
+}
