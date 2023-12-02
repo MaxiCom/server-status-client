@@ -2,11 +2,14 @@
 <?php
 
 use App\Service\API\ServerStatusApiService;
+use App\Service\EnvService;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 try {
+    EnvService::load();
+
     ServerStatusApiService::apiUpdate();
 } catch (TransportExceptionInterface $e) {
     echo $e;
