@@ -8,6 +8,9 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class ServerStatusApiService
 {
+    public static string $apiUrl;
+    public static string $apiKey;
+
     /**
      * @throws TransportExceptionInterface
      */
@@ -16,7 +19,7 @@ class ServerStatusApiService
         $httpClient = HttpClient::create();
         $httpClient->request(
             'POST',
-            $_ENV['API_URL'] . $endpoint,
+            self::$apiUrl . $endpoint,
             [
                 'json' => $values,
             ]
@@ -34,7 +37,7 @@ class ServerStatusApiService
 
         self::request('/active_user_counts', [
             'count' => $activeUserCount,
-            'api_key' => $_ENV['API_KEY'],
+            'api_key' => self::$apiKey,
         ]);
     }
 }

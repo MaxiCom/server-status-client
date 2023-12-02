@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Service\API\ServerStatusApiService;
 use Symfony\Component\Dotenv\Dotenv;
 
 class EnvService
@@ -12,5 +13,8 @@ class EnvService
     {
         $dotenv = new Dotenv();
         $dotenv->load(self::ENV_FILE_PATH);
+
+        ServerStatusApiService::$apiUrl = $_ENV['API_URL'];
+        ServerStatusApiService::$apiKey = $_ENV['API_KEY'];
     }
 }
