@@ -2,7 +2,7 @@
 
 namespace App\Service\API;
 
-use App\Service\Metrics\ActiveUserService;
+use App\Service\Metrics\ActiveUserMetric;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
@@ -33,11 +33,9 @@ class ServerStatusApiService
      */
     public static function apiUpdate(): void
     {
-        $activeUserCount = ActiveUserService::fetchCount();
-
-        self::request('/active_user_counts', [
-            'count' => $activeUserCount,
-            'api_key' => self::$apiKey,
-        ]);
+        self::request(
+            ActiveUserMetric::getApiEndpoint(),
+            ActiveUserMetric::getMetricValue()
+        );
     }
 }
