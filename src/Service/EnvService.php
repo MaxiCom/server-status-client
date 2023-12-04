@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Service\API\ServerStatusApiService;
+use App\Service\API\ServerStatusClientApiService;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Dotenv\Exception\FormatException;
 use Symfony\Component\Dotenv\Exception\PathException;
@@ -21,7 +21,7 @@ class EnvService
             echo $exception;
         }
 
-        ServerStatusApiService::$apiUrl = $_ENV['API_URL'];
-        ServerStatusApiService::$apiKey = $_ENV['API_KEY'];
+        ServerStatusClientApiService::$apiUrl = $_ENV['API_URL'];
+        ServerStatusClientApiService::$apiKey = $_ENV['API_KEY'];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Service\API\ServerStatusApiService;
+use App\Service\API\ServerStatusClientApiService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,7 +18,7 @@ class ApiSendMetricsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        ServerStatusApiService::apiUpdate();
+        ServerStatusClientApiService::apiUpdate();
 
         return Command::SUCCESS;
     }

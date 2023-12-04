@@ -6,7 +6,7 @@ use App\Service\Metrics\ActiveUserMetric;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class ServerStatusApiService
+class ServerStatusClientApiService
 {
     public static string $apiUrl;
     public static string $apiKey;
