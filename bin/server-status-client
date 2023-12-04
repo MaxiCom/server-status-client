@@ -1,16 +1,25 @@
 #!/usr/bin/env php
 <?php
 
-use App\Service\API\ServerStatusApiService;
+use App\Command\ApiListenCommand;
+use App\Command\ApiSendMetricsCommand;
 use App\Service\EnvService;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Component\Console\Application;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-try {
-    EnvService::load();
+EnvService::load();
 
-    ServerStatusApiService::apiUpdate();
-} catch (TransportExceptionInterface $e) {
+try {
+    $application = new Application('server-status-client');
+
+    $apiSendMetricsCommand = new ApiSendMetricsCommand();
+    $apiListenCommand = new ApiListenCommand();
+
+    $application->add($apiSendMetricsCommand);
+    $application->add($apiListenCommand);
+
+    $application->run();
+} catch (Exception $e) {
     echo $e;
 }
