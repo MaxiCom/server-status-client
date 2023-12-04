@@ -2,8 +2,10 @@
 
 namespace App\Service;
 
-use App\Service\API\ServerStatusApiService;
+use App\Service\API\ServerStatusClientApiService;
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Dotenv\Exception\FormatException;
+use Symfony\Component\Dotenv\Exception\PathException;
 
 class EnvService
 {
@@ -12,9 +14,14 @@ class EnvService
     public static function load(): void
     {
         $dotenv = new Dotenv();
-        $dotenv->load(self::ENV_FILE_PATH);
 
-        ServerStatusApiService::$apiUrl = $_ENV['API_URL'];
-        ServerStatusApiService::$apiKey = $_ENV['API_KEY'];
+        try {
+            $dotenv->load(self::ENV_FILE_PATH);
+        } catch (FormatException | PathException $exception) {
+            echo $exception;
+        }
+
+        ServerStatusClientApiService::$apiUrl = $_ENV['API_URL'];
+        ServerStatusClientApiService::$apiKey = $_ENV['API_KEY'];
     }
 }
