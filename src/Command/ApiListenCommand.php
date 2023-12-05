@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Socket\Server;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,6 +18,8 @@ class ApiListenCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        Server::run();
+
         return Command::SUCCESS;
     }
 }
