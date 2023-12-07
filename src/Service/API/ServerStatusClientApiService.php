@@ -15,6 +15,8 @@ class ServerStatusClientApiService
     {
         $httpClient = HttpClient::create();
 
+        $values['API_KEY'] = self::$apiKey;
+
         try {
             $httpClient->request(
                 'POST',
