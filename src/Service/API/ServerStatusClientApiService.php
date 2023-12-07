@@ -4,6 +4,7 @@ namespace App\Service\API;
 
 use App\Service\Metrics\ActiveUserMetric;
 use App\Service\Metrics\CpuUsageMetric;
+use App\Service\Metrics\DiskUsageMetric;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
@@ -41,6 +42,11 @@ class ServerStatusClientApiService
         self::request(
             CpuUsageMetric::getApiEndpoint(),
             CpuUsageMetric::getMetricValue(),
+        );
+
+        self::request(
+            DiskUsageMetric::getApiEndpoint(),
+            DiskUsageMetric::getMetricValue(),
         );
     }
 }
