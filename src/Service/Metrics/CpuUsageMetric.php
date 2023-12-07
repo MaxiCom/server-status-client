@@ -25,6 +25,8 @@ class CpuUsageMetric implements MetricInterface
         $load = sys_getloadavg();
         $cores = trim(shell_exec('nproc --all'));
 
-        return ($load[1] / $cores) * 100;
+        $cpuLoadInPercent = ($load[1] / $cores) * 100;
+
+        return round($cpuLoadInPercent, 2);
     }
 }
