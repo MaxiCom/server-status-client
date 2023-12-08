@@ -3,15 +3,16 @@
 namespace App\Service\Metrics;
 
 use App\Service\Metrics\Interface\MetricInterface;
+use Override;
 
 class CpuUsageMetric implements MetricInterface
 {
-    public static function getApiEndpoint(): string
+    #[Override] public static function getApiEndpoint(): string
     {
         return '/cpu_usage';
     }
 
-    public static function getMetricValue(): array
+    #[Override] public static function getMetricValue(): array
     {
         $cpuUsage = self::getCpuUsage();
 
