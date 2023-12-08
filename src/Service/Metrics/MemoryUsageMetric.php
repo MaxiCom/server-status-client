@@ -5,7 +5,7 @@ namespace App\Service\Metrics;
 use App\Service\Metrics\Interface\MetricInterface;
 use Override;
 
-class MemoryUsage implements MetricInterface
+class MemoryUsageMetric implements MetricInterface
 {
     #[Override] public static function getApiEndpoint(): string
     {
