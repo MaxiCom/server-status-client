@@ -2,7 +2,7 @@
 
 namespace App\Service\API;
 
-use App\Service\Metrics\ActiveUserMetric;
+use App\Service\Metrics\MetricLoader;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
@@ -32,9 +32,11 @@ class ServerStatusClientApiService
 
     public static function apiUpdate(): void
     {
-        self::request(
-            ActiveUserMetric::getApiEndpoint(),
-            ActiveUserMetric::getMetricValue()
-        );
+        foreach (MetricLoader::getMetrics() as $metric) {
+            self::request(
+                call_user_func([$metric, 'getApiEndpoint']),
+                call_user_func([$metric, 'getMetricValue']),
+            );
+        }
     }
 }
