@@ -2,10 +2,7 @@
 
 namespace App\Service\API;
 
-use App\Service\Metrics\ActiveUserMetric;
-use App\Service\Metrics\CpuUsageMetric;
-use App\Service\Metrics\DiskUsageMetric;
-use App\Service\Metrics\MemoryUsageMetric;
+use App\Service\Metrics\MetricLoader;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
@@ -35,24 +32,11 @@ class ServerStatusClientApiService
 
     public static function apiUpdate(): void
     {
-        self::request(
-            ActiveUserMetric::getApiEndpoint(),
-            ActiveUserMetric::getMetricValue(),
-        );
-
-        self::request(
-            CpuUsageMetric::getApiEndpoint(),
-            CpuUsageMetric::getMetricValue(),
-        );
-
-        self::request(
-            DiskUsageMetric::getApiEndpoint(),
-            DiskUsageMetric::getMetricValue(),
-        );
-
-        self::request(
-            MemoryUsageMetric::getApiEndpoint(),
-            MemoryUsageMetric::getMetricValue(),
-        );
+        foreach (MetricLoader::getMetrics() as $metric) {
+            self::request(
+                call_user_func([$metric, 'getApiEndpoint']),
+                call_user_func([$metric, 'getMetricValue']),
+            );
+        }
     }
 }
