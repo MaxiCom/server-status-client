@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 use App\Command\ApiListenCommand;
 use App\Command\ApiSendMetricsCommand;
 use App\Service\EnvService;
